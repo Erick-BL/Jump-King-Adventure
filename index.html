@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Adventure - Edição Melhorada</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- Interface do jogo -->
+        <div id="ui">
+            <div>🎮 Vidas: <span id="lives">3</span></div>
+            <div>⭐ Pontos: <span id="score">0</span></div>
+            <div>🏆 Fase: <span id="level">1</span></div>
+            <div>💰 Moedas: <span id="coins">0</span></div>
+        </div>
+        
+        <!-- Estatísticas no canto superior direito -->
+        <div class="stats-badge">
+            <div>🏆 Recorde: <span id="highscore">0</span></div>
+            <div>🎮 Partidas: <span id="gamesPlayed">0</span></div>
+        </div>
+        
+        <!-- Tela de menu inicial -->
+        <div id="instructions">
+            <h1>🎮 SUPER ADVENTURE 🎮</h1>
+            <p><strong>CONTROLES:</strong></p>
+            <p>← ou D: Mover para esquerda</p>
+            <p>→: Mover para direita</p>
+            <p>A ou ↑: Pular</p>
+            <p>S ou ↓: Descer rápido (no ar)</p>
+            <p><strong>OBJETIVO:</strong></p>
+            <p>Colete moedas, derrote inimigos pulando sobre eles</p>
+            <p>e chegue ao final da fase!</p>
+            <div id="menuHighscores" class="highscores" style="display:none;">
+                <h3>🏆 TOP 5 RECORDES 🏆</h3>
+                <div id="menuHighscoresList"></div>
+            </div>
+            <button onclick="startGame()">COMEÇAR JOGO</button>
+            <button onclick="viewStats()">VER ESTATÍSTICAS</button>
+        </div>
+        
+        <!-- Tela de Game Over -->
+        <div id="gameOver">
+            <h2 id="gameOverTitle">GAME OVER</h2>
+            <div id="gameOverText"></div>
+            <div id="gameOverHighscores" class="highscores">
+                <h3>🏆 TOP 5 RECORDES 🏆</h3>
+                <div id="highscoresList"></div>
+            </div>
+            <button onclick="restartGame()">JOGAR NOVAMENTE</button>
+            <button onclick="backToMenu()">MENU PRINCIPAL</button>
+        </div>
+        
+        <!-- Controles na parte inferior -->
+        <div class="controls">
+            ← ou D Mover | → Direita | W ou ↑ Pular | S ou ↓ Descer Rápido
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
