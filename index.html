@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Adventure - Edição Melhorada</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Super Adventure - Com Timer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="gameContainer">
         <canvas id="gameCanvas"></canvas>
-        
-        <!-- Interface do jogo -->
+
+        <button id="pauseBtn" onclick="togglePause()">
+            <svg id="pauseIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="5" width="5" height="14" rx="1"/>
+                <rect x="14" y="5" width="5" height="14" rx="1"/>
+            </svg>
+        </button>
+
         <div id="ui">
             <div>🎮 Vidas: <span id="lives">3</span></div>
             <div>⭐ Pontos: <span id="score">0</span></div>
             <div>🏆 Fase: <span id="level">1</span></div>
             <div>💰 Moedas: <span id="coins">0</span></div>
+            <div>⏱️ Tempo: <span id="timer">00:00.00</span></div>
         </div>
-        
-        <!-- Estatísticas no canto superior direito -->
+
         <div class="stats-badge">
             <div>🏆 Recorde: <span id="highscore">0</span></div>
             <div>🎮 Partidas: <span id="gamesPlayed">0</span></div>
         </div>
-        
-        <!-- Tela de menu inicial -->
+
+        <div id="pauseOverlay">
+            <h2>JOGO PAUSADO</h2>
+            <button onclick="togglePause()" style="margin-top: 20px;">CONTINUAR</button>
+            <button onclick="backToMenu()" style="margin-top: 10px;">MENU PRINCIPAL</button>
+        </div>
+
         <div id="instructions">
             <h1>🎮 SUPER ADVENTURE 🎮</h1>
             <p><strong>CONTROLES:</strong></p>
-            <p>← ou D: Mover para esquerda</p>
-            <p>→: Mover para direita</p>
-            <p>A ou ↑: Pular</p>
+            <p>A ou ←: Mover para esquerda</p>
+            <p>D ou →: Mover para direita</p>
+            <p>W ou ↑: Pular</p>
             <p>S ou ↓: Descer rápido (no ar)</p>
+            <p>ESC: Pausar/Despausar</p>
             <p><strong>OBJETIVO:</strong></p>
             <p>Colete moedas, derrote inimigos pulando sobre eles</p>
-            <p>e chegue ao final da fase!</p>
+            <p>e chegue ao final da fase o mais rápido possível!</p>
             <div id="menuHighscores" class="highscores" style="display:none;">
                 <h3>🏆 TOP 5 RECORDES 🏆</h3>
                 <div id="menuHighscoresList"></div>
@@ -42,22 +54,31 @@
             <button onclick="startGame()">COMEÇAR JOGO</button>
             <button onclick="viewStats()">VER ESTATÍSTICAS</button>
         </div>
-        
-        <!-- Tela de Game Over -->
+
         <div id="gameOver">
             <h2 id="gameOverTitle">GAME OVER</h2>
             <div id="gameOverText"></div>
+
+            <div id="nameInput">
+                <p>Digite seu nome (5 caracteres) — ou pule para não salvar:</p>
+                <input type="text" id="playerName" maxlength="5" placeholder="JOGDR" />
+                <p id="nameError" style="color: #FF4444; display: none;">Nome deve ter exatamente 5 caracteres!</p>
+                <div style="margin-top:10px;">
+                    <button onclick="submitScore()">SALVAR RECORDE</button>
+                    <button onclick="skipSave()" style="background: linear-gradient(to bottom, #6C757D, #495057);">PULAR (NÃO SALVAR)</button>
+                </div>
+            </div>
+
             <div id="gameOverHighscores" class="highscores">
                 <h3>🏆 TOP 5 RECORDES 🏆</h3>
                 <div id="highscoresList"></div>
             </div>
-            <button onclick="restartGame()">JOGAR NOVAMENTE</button>
-            <button onclick="backToMenu()">MENU PRINCIPAL</button>
+            <button id="playAgainBtn" onclick="restartGame()">JOGAR NOVAMENTE</button>
+            <button id="menuBtn" onclick="backToMenu()">MENU PRINCIPAL</button>
         </div>
-        
-        <!-- Controles na parte inferior -->
+
         <div class="controls">
-            ← ou D Mover | → Direita | W ou ↑ Pular | S ou ↓ Descer Rápido
+           A ou ← Mover | D ou → Direita | W ou ↑ Pular | S ou ↓ Descer | ESC Pausar
         </div>
     </div>
 
